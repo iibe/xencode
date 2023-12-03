@@ -1,0 +1,48 @@
+{
+  "extends": [
+    "./configs/compiler-options.dev.json",
+    "./configs/tsconfig.type-checking.json"
+  ],
+  "compileOnSave": false,
+  "compilerOptions": {
+    "diagnostics": false,
+    "extendedDiagnostics": false,
+    "pretty": true,
+
+    // Source code
+    "allowJs": true,
+
+    // Source code :: Module imports
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"],
+      "tests/*": ["./tests/*"]
+    },
+
+    // Object code :: Compiling
+    "target": "ES6",
+    "module": "CommonJS",
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    // Object code :: Emit
+    "noEmit": false,
+    "alwaysStrict": true,
+    "removeComments": false,
+    "sourceMap": true,
+
+    // Object code :: Completeness
+    "skipLibCheck": true,
+
+    // Object code :: Type definitions
+    "declaration": true,
+    "declarationDir": "./dist/types",
+    "declarationMap": true
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["./src/**/*.spec.ts", "./node_modules"]
+}

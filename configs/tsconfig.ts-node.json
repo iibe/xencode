@@ -1,0 +1,59 @@
+{
+    "compilerOptions": {
+        "allowUnreachableCode": false,
+        "allowUnusedLabels": false,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "strict": false,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictBindCallApply": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "strictPropertyInitialization": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "noUncheckedIndexedAccess": false,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "preserveConstEnums": false,
+        "emitDecoratorMetadata": false,
+        "diagnostics": false,
+        "extendedDiagnostics": false,
+        "allowJs": true,
+        "moduleResolution": "node10",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "baseUrl": "./",
+        "paths": {
+            "~/*": [
+                "./src/*"
+            ],
+            "tests/*": [
+                "./tests/*"
+            ]
+        },
+        "target": "es6",
+        "module": "commonjs",
+        "rootDir": "./src",
+        "outDir": "./dist",
+        "noEmit": false,
+        "alwaysStrict": true,
+        "removeComments": false,
+        "sourceMap": true,
+        "skipLibCheck": true,
+        "declaration": true,
+        "declarationDir": "./dist/types",
+        "declarationMap": true
+    },
+    "files": [
+        "./src/index.ts"
+    ],
+    "include": [
+        "./src/**/*"
+    ],
+    "exclude": [
+        "./src/**/*.spec.ts",
+        "./node_modules"
+    ]
+}

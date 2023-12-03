@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json.schemastore.org/nodemon.json",
+  "verbose": true,
+  "watch": ["src/**"],
+  "ext": "ts,json",
+  "ignore": ["src/**/*.spec.ts"],
+  "exec": "ts-node --project ./configs/tsconfig.ts-node.json src/index.ts",
+  "execMap": {
+    "ts": "ts-node"
+  }
+}
