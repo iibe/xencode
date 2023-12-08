@@ -2,12 +2,12 @@
   "name": "xencode",
   "version": "1.0.0",
   "description": "Simple and easy-to-use text encoding algorithms",
-  "type": "module",
   "private": "true",
   "scripts": {
     "start": "npm run watch",
     "watch": "npm run configs && nodemon",
     "build": "npm run configs && webpack",
+    "build:tsc": "tsc --build",
     "serve": "webpack serve",
     "test": "jest",
     "format": "prettier --check .",
