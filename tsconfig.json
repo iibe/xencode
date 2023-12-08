@@ -1,9 +1,8 @@
 {
   "extends": [
     "./configs/compiler-options.dev.json",
-    "./configs/tsconfig.type-checking.json"
+    "./configs/compiler-options.style.json"
   ],
-  "compileOnSave": false,
   "compilerOptions": {
     "diagnostics": false,
     "extendedDiagnostics": false,
@@ -14,6 +13,7 @@
 
     // Source code :: Module imports
     "moduleResolution": "Node",
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
@@ -22,10 +22,11 @@
       "~/*": ["./src/*"],
       "tests/*": ["./tests/*"]
     },
+    "typeRoots": ["./node_modules/@types", "./src/types/**/*.d.ts"],
 
     // Object code :: Compiling
     "target": "ES6",
-    "module": "CommonJS",
+    "module": "ES6",
     "rootDir": "./src",
     "outDir": "./dist",
 
@@ -43,6 +44,16 @@
     "declarationDir": "./dist/types",
     "declarationMap": true
   },
-  "include": ["./src/**/*"],
-  "exclude": ["./src/**/*.spec.ts", "./node_modules"]
+  "include": ["./src/**/*.ts"],
+  "exclude": ["./node_modules", "./src/**/*.spec.ts"],
+  "ts-node": {
+    // Error, because since Node v20, ESM loader hooks run on dedicated thread:
+    // URL: https://github.com/TypeStrong/ts-node/issues/1997
+    // URL: https://nodejs.org/en/blog/release/v20.0.0#custom-esm-loader-hooks-run-on-dedicated-thread
+    "esm": true,
+    "compilerOptions": {
+      "target": "ES5",
+      "module": "CommonJS"
+    }
+  }
 }

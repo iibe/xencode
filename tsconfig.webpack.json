@@ -1,0 +1,9 @@
+{
+  "extends": ["./tsconfig.json"],
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "target": "ES5",
+    "module": "CommonJS"
+  }
+}

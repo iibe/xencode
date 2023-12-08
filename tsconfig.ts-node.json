@@ -1,0 +1,9 @@
+{
+  // `ts-node` can't threat a list of extensions, use `tsc --showConfig`
+  "extends": ["./tsconfig.json"],
+  "compilerOptions": {
+    // `ts-node` doesn't support any module syntax other than CommonJS
+    "module": "CommonJS",
+    "target": "ES5"
+  }
+}

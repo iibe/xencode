@@ -1,35 +1,33 @@
-declare namespace xencode {
-  /**
-   * - p (stands for _pendulum_) - pendulum
-   * - c (stands for _caeras_) - simple [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher);
-   * - t (stands for _thinout_) - moves each **nth** letter to the start (or the end) of string
-   */
-  type ActionName = "p" | "c" | "t";
+/**
+ * - p (stands for _pendulum_) - pendulum
+ * - c (stands for _caeras_) - simple [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher);
+ * - t (stands for _thinout_) - moves each **nth** letter to the start (or the end) of string
+ */
+type ActionName = "p" | "c" | "t";
 
-  interface Action {
-    name: ActionName;
-    isLeft: boolean;
-    number: number;
-  }
-
-  type LanguageNames = "en_US" | "ru_RU";
-
-  type LanguageProps = {
-    // Real alphabet size (with exceptions).
-    size: number;
-
-    // Starting point in form of UTF-16 code unit.
-    from: number;
-
-    // Set of specific symbols that is out [from, from + size] range.
-    exceptions?: Array<{
-      char: string;
-      code: number;
-    }>;
-  };
-
-  type Languages = Record<LanguageNames, LanguageProps>;
+interface Action {
+  name: ActionName;
+  isLeft: boolean;
+  number: number;
 }
+
+type LanguageNames = "en_US" | "ru_RU";
+
+type LanguageProps = {
+  // Real alphabet size (with exceptions).
+  size: number;
+
+  // Starting point in form of UTF-16 code unit.
+  from: number;
+
+  // Set of specific symbols that is out [from, from + size] range.
+  exceptions?: Array<{
+    char: string;
+    code: number;
+  }>;
+};
+
+type LanguageTable = Record<LanguageNames, LanguageProps>;
 
 interface IXencode {
   /**
@@ -57,7 +55,7 @@ interface IXencode {
   thinout(message: string, isPushToLeft: boolean, each: number): string;
 }
 
-const LANGUAGES: xencode.Languages = {
+const LANGUAGES: LanguageTable = {
   en_US: { size: 26, from: 97 },
   ru_RU: {
     size: 33,
@@ -70,7 +68,7 @@ export class Xencode implements IXencode {
   private alphabet: string = this.stringifyAlphabet(this.language);
   private alphalen: number = this.alphabet.length;
 
-  constructor(private language: xencode.LanguageNames = "en_US") {}
+  constructor(private language: LanguageNames = "en_US") {}
 
   encode(message: string, command: string): string {
     this.parseCommand(command).forEach(({ name, isLeft, number }) => {
@@ -111,7 +109,7 @@ export class Xencode implements IXencode {
     let queue = [...message];
 
     for (let i = 0; i < times; i++) {
-      let array: string[] = [];
+      const array: string[] = [];
 
       // TODO: use deque() (or doubly linked list) for most performance
       for (let j = 0; j < Math.round(queue.length / 2); j++) {
@@ -165,7 +163,7 @@ export class Xencode implements IXencode {
     return base.join("");
   }
 
-  private stringifyAlphabet(language: xencode.LanguageNames): string {
+  private stringifyAlphabet(language: LanguageNames): string {
     const { size, from, exceptions } = LANGUAGES[language];
 
     let alphabet: string = "";
@@ -181,7 +179,7 @@ export class Xencode implements IXencode {
     return alphabet;
   }
 
-  private parseCommand(command: string): xencode.Action[] {
+  private parseCommand(command: string): Action[] {
     const regex: RegExp = /[pct][lr]-[0-9]/gm;
     const match = command.match(regex);
 
@@ -191,7 +189,7 @@ export class Xencode implements IXencode {
       const [lhs, rhs] = chunk.split("-", 2);
 
       return {
-        name: lhs[0] as xencode.ActionName,
+        name: lhs[0] as ActionName,
         isLeft: lhs[1] === "l",
         number: parseInt(rhs),
       };
@@ -206,7 +204,7 @@ export class Xencode implements IXencode {
     return char.length === 1 && char === char.toUpperCase();
   }
 
-  set locale(language: xencode.LanguageNames) {
+  set locale(language: LanguageNames) {
     this.language = language;
     this.alphabet = this.stringifyAlphabet(this.language);
     this.alphalen = this.alphabet.length;
